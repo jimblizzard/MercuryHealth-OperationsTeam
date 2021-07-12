@@ -1,0 +1,13 @@
+appName="blizzMercuryHealthApp"
+
+az ad app create \
+    --display-name $appName \
+    --homepage "http://localhost/$appName" \
+    --identifier-uris http://localhost/$appName
+
+
+az ad sp create-for-rbac --name $appName --role contributor \
+                                --scopes /subscriptions/xxxxx-edaca21a19b2 \
+                                --sdk-auth
+
+
