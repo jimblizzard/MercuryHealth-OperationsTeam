@@ -41,7 +41,7 @@
       "metadata": {
         "description": "Admin username on all VMs."
       },
-      "defaultValue": "nkpatterson"
+      "defaultValue": "blizz"
     },
     "password": {
       "type": "securestring",
