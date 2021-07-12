@@ -1,5 +1,5 @@
 # Welcome to the MercuryHealth Operations Team!
-
+ 
 ### Environment Creation Request Process
 1. Open an [Environment Request Issue](https://github.com/jimblizzard/MercuryHealth-OperationsTeam/issues/new/choose)
 1. Be as detailed as possible in the form
