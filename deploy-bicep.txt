@@ -1,0 +1,9 @@
+
+
+### Use the Bicep file (main.bicep) for the deployment. 
+
+
+See https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-github-actions
+
+The bicep file is located in here: 
+https://github.com/Azure/azure-quickstart-templates/tree/master/quickstarts/microsoft.web/web-app-sql-database
