@@ -11,3 +11,9 @@ https://github.com/Azure/azure-quickstart-templates/tree/master/quickstarts/micr
 The raw bicep file is located here:
 https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/quickstarts/microsoft.web/web-app-sql-database/main.bicep
 
+
+### Application Information
+Application Name: blizzsqlapp2
+Business Justification: gotta have it
+Link to Application Repo: jimblizzard/mercuryhealth-web
+
