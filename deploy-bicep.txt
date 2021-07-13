@@ -13,7 +13,18 @@ https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/quicks
 
 
 ### Application Information
-Application Name: blizzsqlapp2
+Application Name: blizzsqlapp3
 Business Justification: gotta have it
 Link to Application Repo: jimblizzard/mercuryhealth-web
 
+### Technical Information
+**Host Environment Type:**
+- [ ] General Compute/VMs (load-balanced Windows VM Scale Set)
+- [x] Web App Hosting (Azure App Service+SQL Database combination)
+- [ ] Container App (Azure Kubernetes Service)
+- [ ] Serverless/Event-Driven (Azure Function App environment)
+
+### Security
+**Compliance Requirements:**
+- [ ] PCI-DSS (for apps that process payment information)
+- [ ] HIPAA (for apps that store health information)
