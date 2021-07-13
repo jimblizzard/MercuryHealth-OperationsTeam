@@ -16,7 +16,9 @@ jobs:
         creds: ${{ secrets.MercuryHealthGitHubActionsSP }}
 
     - name: where are we
-      run: ls -la
+      run: |
+        pwd
+        ls -la
 
       # Deploy Bicep file
     - name: deploy
