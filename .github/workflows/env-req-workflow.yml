@@ -41,8 +41,8 @@ jobs:
             resourceGroupName: ${{ steps.parser.outputs.appName }}-rg
             template: ./templates/web-app-sql-database/azuredeploy.bicep
             parameters: 
-              password=${{ secrets.DEFAULTPASSWORD }}
-              sqlAdminstratorLoginPassword=${{ secrets.SQL_ADMIN_NAME}}
+              sqlAdministratorLogin=${{ secrets.SQL_ADMIN_NAME }}
+              sqlAdminstratorLoginPassword=${{ secrets.SQL_ADMIN_PASSWORD}}
               #name=${{ steps.parser.outputs.appName }} 
 
       - name: apply policy 
