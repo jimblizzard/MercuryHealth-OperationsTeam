@@ -20,7 +20,7 @@ jobs:
       uses: azure/arm-deploy@v1
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-        resourceGroupName: blizzBicepRg 
+        resourceGroupName: blizzBicep-rg 
         template: https://raw.githubusercontent.com/mumian/azure-docs-json-samples/master/get-started-with-templates/add-variable/azuredeploy.bicep
         parameters: storagePrefix=blizzstore
         #template: ./azuredeploy.bicep
