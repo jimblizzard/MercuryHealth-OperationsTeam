@@ -36,7 +36,7 @@ jobs:
         with:
             subscriptionID: ${{ secrets.AZURE_SUBSCRIPTION }}
             resourceGroupName: ${{ steps.parser.outputs.appName }}-rg
-            template: https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/quickstarts/microsoft.web/web-app-sql-database/main.bicep
+            template: ./templates/web-app-sql-database/azuredeploy.bicep
             parameters: 
               password=${{ secrets.DEFAULTPASSWORD }}
               sqlAdminstratorLoginPassword=${{ secrets.SQL_ADMIN_NAME}}
