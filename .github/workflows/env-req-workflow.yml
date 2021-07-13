@@ -2,36 +2,55 @@ name: Environment Creation Workflow
 on: 
   issues:
     types: [labeled]
-
+  
+  workflow_dispatch:
+    
 jobs:
   build:
     name: EnvironmentCreation
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - name: checkout repository
+        uses: actions/checkout@v1
 
-      - uses: jimblizzard/MercuryHealth-Actions/.github/actions/env-req-parser@master
+      - name: run parser
+        uses: jimblizzard/MercuryHealth-Actions/.github/actions/env-req-parser@master
         id: parser
 
-      - uses: azure/login@v1
+      - name: azure login
+        uses: azure/login@v1
         if: steps.parser.outputs.approved
         with:
           creds: ${{ secrets.MercuryHealthGitHubActionsSP }}
 
-      - uses: azure/CLI@v1
+      - name: create rg 
+        uses: azure/CLI@v1
         if: steps.parser.outputs.approved
         with:
           inlineScript: |
             az group create -n ${{ steps.parser.outputs.appName }}-rg -l ${{ secrets.DefaultAzureLocation }}
-            az deployment group create -g ${{ steps.parser.outputs.appName }}-rg --template-file $GITHUB_WORKSPACE/templates/${{ steps.parser.outputs.armTemplate }}/azuredeploy.json --parameters name=${{ steps.parser.outputs.appName }} password=${{ secrets.DefaultPassword }}
+            # az deployment group create -g ${{ steps.parser.outputs.appName }}-rg --template-file $GITHUB_WORKSPACE/templates/${{ steps.parser.outputs.armTemplate }}/azuredeploy.json --parameters name=${{ steps.parser.outputs.appName }} password=${{ secrets.DefaultPassword }}
 
-      - uses: azure/CLI@v1
+      - name: deploy resources into rg 
+        uses: azure/arm-deploy@v1
+        with:
+            subscriptionID: ${{ secrets.AZURE_SUBSCRIPTION }}
+            resourceGroupName: ${{ steps.parser.outputs.appName }}-rg
+            template: https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/quickstarts/microsoft.web/web-app-sql-database/main.bicep
+            parameters: 
+              password=${{ secrets.DEFAULTPASSWORD }}
+              sqlAdminstratorLoginPassword=${{ secrets.SQL_ADMIN_NAME}}
+              #name=${{ steps.parser.outputs.appName }} 
+
+      - name: apply policy 
+        uses: azure/CLI@v1
         if: steps.parser.outputs.approved && steps.parser.outputs.applyPolicy
         with:
           inlineScript: |
             az policy assignment create -n "${{ steps.parser.outputs.policyName }}" -g ${{ steps.parser.outputs.appName }}-rg -d $(az policy set-definition list --query "[?contains(displayName,'${{ steps.parser.outputs.policyName }}')].name" -o tsv) -l ${{ secrets.DefaultAzureLocation }} --assign-identity
             
-      - uses: peter-evans/create-or-update-comment@v1.0.0
+      - name: update the issue
+        uses: peter-evans/create-or-update-comment@v1.0.0
         if: steps.parser.outputs.approved
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
