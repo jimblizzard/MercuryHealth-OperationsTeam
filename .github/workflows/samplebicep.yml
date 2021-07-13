@@ -1,7 +1,7 @@
 on: 
   workflow_dispatch:
     
-name: Azure ARM
+name: Azure ARM via Bicep
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -26,6 +26,6 @@ jobs:
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         resourceGroupName: blizzBicep-rg 
-        template: ../../templates/web-app-sql-database/azuredeploy.bicep
+        template: ./templates/web-app-sql-database/azuredeploy.bicep
         parameters: storagePrefix=blizzstore
         #template: ./azuredeploy.bicep
