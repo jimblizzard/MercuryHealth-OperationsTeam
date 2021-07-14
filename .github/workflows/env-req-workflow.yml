@@ -52,12 +52,12 @@ jobs:
           echo 'applyPolicy: ' ${{ steps.parser.outputs.applyPolicy}}
           echo 'policyName: ' ${{ steps.parser.outputs.policyName }}
 
-      - name: apply policy 
-        uses: azure/CLI@v1
-        if: steps.parser.outputs.approved && steps.parser.outputs.applyPolicy
-        with:
-          inlineScript: |
-            az policy assignment create -n "${{ steps.parser.outputs.policyName }}" -g ${{ steps.parser.outputs.appName }}-rg -d $(az policy set-definition list --query "[?contains(displayName,'${{ steps.parser.outputs.policyName }}')].name" -o tsv) -l ${{ secrets.DEFAULT_AZURE_LOCATION }} --assign-identity
+      #- name: apply policy 
+      #  uses: azure/CLI@v1
+      #  if: steps.parser.outputs.approved && steps.parser.outputs.applyPolicy
+      #  with:
+      #    inlineScript: |
+      #      az policy assignment create -n "${{ steps.parser.outputs.policyName }}" -g ${{ steps.parser.outputs.appName }}-rg -d $(az policy set-definition list --query "[?contains(displayName,'${{ steps.parser.outputs.policyName }}')].name" -o tsv) -l ${{ secrets.DEFAULT_AZURE_LOCATION }} --assign-identity
             
       - name: update the issue
         uses: peter-evans/create-or-update-comment@v1.0.0

@@ -11,3 +11,4 @@ az ad sp create-for-rbac --name $appName --role contributor \
                                 --sdk-auth
 
 
+Note: use the portal to give the SP permission to execute policy in the subscription. (Portal > subscription > IAM > role assignment)
